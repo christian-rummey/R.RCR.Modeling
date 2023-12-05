@@ -42,11 +42,11 @@ survdiff(Surv(tte$time, tte$event)~ pm           , data = tte ) %>% summary()
 fit %>% 
   ggsurvplot(data = tte, pval = T)
 
-# bind_rows(
-#   coxph(Surv(tte$time, tte$event)~ study + aoo, data = tte ) %>% broom::tidy(exp = T, conf.int = T),
-#   coxph(Surv(tte$time, tte$event)~ study + gaa1, data = tte ) %>% broom::tidy(exp = T, conf.int = T),
-#   coxph(Surv(tte$time, tte$event)~ study + value, data = tte ) %>% broom::tidy(exp = T, conf.int = T)
-# )
+bind_rows(
+  coxph(Surv(tte$time, tte$event)~ pm + aoo, data = tte ) %>% broom::tidy(exp = T, conf.int = T),
+  coxph(Surv(tte$time, tte$event)~ pm + gaa1, data = tte ) %>% broom::tidy(exp = T, conf.int = T)
+  ) %>% 
+  .fixmod()
 
 bind_rows(
   coxph(Surv(tte$time, tte$event)~ aoo, data = tte ) %>% broom::tidy(exp = T, conf.int = T),
